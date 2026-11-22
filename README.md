@@ -233,6 +233,8 @@ Para que las rutas funcionen **también en el sitio publicado**:
 | `android` (Pixel 7, táctil) | Chromium 159.0 | 17/17 |
 | `iphone` (iPhone 13, táctil) | WebKit 27.2 | 17/17 |
 
+**Contra el sitio publicado en GitHub Pages** (con `E2E_URL=https://xhellex.github.io/viajes-felipe-penaloza-pfy2202/ npx playwright test e2e/recorrido.spec.js`), los 10 escenarios del recorrido aprobaron en Chromium, Firefox y WebKit: **30 de 30**, incluida la recarga directa de `/destinos/cusco/hoteles` mediante `404.html`.
+
 Escenarios (`e2e/recorrido.spec.js` y `e2e/compatibilidad.spec.js`):
 
 - listado REST y filtros;
