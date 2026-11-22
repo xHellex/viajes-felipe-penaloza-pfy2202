@@ -1,0 +1,160 @@
+/**
+ * Destinos de la agencia (datos del mock REST).
+ * tono: par de colores para el degradado de la tarjeta (sin imágenes externas).
+ * precioDesde: paquete más barato en CLP (vuelo + 1 noche), solo informativo.
+ */
+export const destinos = [
+  {
+    id: 'cusco',
+    nombre: 'Cusco',
+    pais: 'Perú',
+    continente: 'América',
+    resumen: 'La antigua capital inca, puerta de entrada a Machu Picchu y al Valle Sagrado.',
+    descripcion:
+      'Calles de piedra, muros incas y templos coloniales a 3.400 metros de altura. Desde Cusco se llega en tren a Machu Picchu y se recorren los pueblos del Valle Sagrado.',
+    actividades: [
+      { nombre: 'Machu Picchu', descripcion: 'Ciudadela inca entre montañas, a tres horas en tren.' },
+      { nombre: 'Valle Sagrado', descripcion: 'Pisac, Ollantaytambo y mercados de artesanía.' },
+      { nombre: 'Montaña de Colores', descripcion: 'Caminata de altura hasta el Vinicunca.' },
+      { nombre: 'Barrio de San Blas', descripcion: 'Talleres de artesanos y miradores sobre la ciudad.' },
+    ],
+    mejorEpoca: 'Mayo a septiembre (temporada seca)',
+    idioma: 'Español y quechua',
+    moneda: 'Sol peruano (PEN)',
+    precioDesde: 289000,
+    tono: ['#b45309', '#7c2d12'],
+  },
+  {
+    id: 'cartagena',
+    nombre: 'Cartagena',
+    pais: 'Colombia',
+    continente: 'América',
+    resumen: 'Ciudad amurallada del Caribe con playas, islas y arquitectura colonial.',
+    descripcion:
+      'Balcones con flores, plazas coloridas y una muralla del siglo XVI frente al mar Caribe. A una hora en lancha están las Islas del Rosario.',
+    actividades: [
+      { nombre: 'Ciudad amurallada', descripcion: 'Paseo por el centro histórico al atardecer.' },
+      { nombre: 'Islas del Rosario', descripcion: 'Snorkel en arrecifes de coral.' },
+      { nombre: 'Getsemaní', descripcion: 'Barrio de murales, música y comida callejera.' },
+    ],
+    mejorEpoca: 'Diciembre a abril',
+    idioma: 'Español',
+    moneda: 'Peso colombiano (COP)',
+    precioDesde: 412000,
+    tono: ['#0e7490', '#155e75'],
+  },
+  {
+    id: 'buenos-aires',
+    nombre: 'Buenos Aires',
+    pais: 'Argentina',
+    continente: 'América',
+    resumen: 'Tango, cafés notables y barrios con identidad propia junto al Río de la Plata.',
+    descripcion:
+      'Una capital para caminar: de los conventillos de La Boca a los parques de Palermo, con librerías, teatros y parrillas en cada esquina.',
+    actividades: [
+      { nombre: 'Show de tango', descripcion: 'Cena y espectáculo en San Telmo.' },
+      { nombre: 'Caminito', descripcion: 'Casas de colores en el barrio de La Boca.' },
+      { nombre: 'Teatro Colón', descripcion: 'Visita guiada a uno de los mejores teatros líricos del mundo.' },
+    ],
+    mejorEpoca: 'Marzo a mayo y septiembre a noviembre',
+    idioma: 'Español',
+    moneda: 'Peso argentino (ARS)',
+    precioDesde: 198000,
+    tono: ['#1d4ed8', '#1e3a8a'],
+  },
+  {
+    id: 'ciudad-de-mexico',
+    nombre: 'Ciudad de México',
+    pais: 'México',
+    continente: 'América',
+    resumen: 'Pirámides, museos y una de las mejores cocinas callejeras del continente.',
+    descripcion:
+      'Sobre las ruinas de Tenochtitlan crece una ciudad enorme, con murales de Rivera, la casa de Frida Kahlo y trajineras en Xochimilco.',
+    actividades: [
+      { nombre: 'Teotihuacan', descripcion: 'Subida a la Pirámide del Sol.' },
+      { nombre: 'Xochimilco', descripcion: 'Paseo en trajinera por los canales.' },
+      { nombre: 'Museo Frida Kahlo', descripcion: 'La Casa Azul en Coyoacán.' },
+    ],
+    mejorEpoca: 'Octubre a abril',
+    idioma: 'Español',
+    moneda: 'Peso mexicano (MXN)',
+    precioDesde: 455000,
+    tono: ['#be123c', '#881337'],
+  },
+  {
+    id: 'rio-de-janeiro',
+    nombre: 'Río de Janeiro',
+    pais: 'Brasil',
+    continente: 'América',
+    resumen: 'Playas icónicas, el Cristo Redentor y la energía de la samba.',
+    descripcion:
+      'Entre el mar y los cerros, Río combina playas como Copacabana e Ipanema con selva urbana en el Parque Nacional de Tijuca.',
+    actividades: [
+      { nombre: 'Cristo Redentor', descripcion: 'Mirador en la cima del Corcovado.' },
+      { nombre: 'Pan de Azúcar', descripcion: 'Teleférico con vista a la bahía de Guanabara.' },
+      { nombre: 'Ipanema', descripcion: 'Atardecer en la playa más famosa de la ciudad.' },
+    ],
+    mejorEpoca: 'Diciembre a marzo',
+    idioma: 'Portugués',
+    moneda: 'Real brasileño (BRL)',
+    precioDesde: 376000,
+    tono: ['#15803d', '#14532d'],
+  },
+  {
+    id: 'madrid',
+    nombre: 'Madrid',
+    pais: 'España',
+    continente: 'Europa',
+    resumen: 'Museos de primer nivel, plazas animadas y tapas hasta tarde.',
+    descripcion:
+      'La capital española reúne el Prado, el Reina Sofía y el Thyssen en un mismo paseo, y de noche se vive en las terrazas de La Latina.',
+    actividades: [
+      { nombre: 'Museo del Prado', descripcion: 'Velázquez, Goya y El Bosco.' },
+      { nombre: 'Parque del Retiro', descripcion: 'Paseo en bote por el estanque.' },
+      { nombre: 'Ruta de tapas', descripcion: 'Bares tradicionales de La Latina.' },
+    ],
+    mejorEpoca: 'Abril a junio y septiembre a octubre',
+    idioma: 'Español',
+    moneda: 'Euro (EUR)',
+    precioDesde: 1089000,
+    tono: ['#c2410c', '#7f1d1d'],
+  },
+  {
+    id: 'tokio',
+    nombre: 'Tokio',
+    pais: 'Japón',
+    continente: 'Asia',
+    resumen: 'Templos centenarios y barrios futuristas en la ciudad más grande del mundo.',
+    descripcion:
+      'Tokio pasa de la calma de un santuario sintoísta a las luces de Shibuya en pocas estaciones de metro, con una gastronomía que no tiene igual.',
+    actividades: [
+      { nombre: 'Templo Senso-ji', descripcion: 'El templo más antiguo de la ciudad, en Asakusa.' },
+      { nombre: 'Cruce de Shibuya', descripcion: 'El cruce peatonal más concurrido del mundo.' },
+      { nombre: 'Mercado de Tsukiji', descripcion: 'Desayuno de sushi en el mercado exterior.' },
+    ],
+    mejorEpoca: 'Marzo a mayo (cerezos) y octubre a noviembre',
+    idioma: 'Japonés',
+    moneda: 'Yen (JPY)',
+    precioDesde: 1450000,
+    tono: ['#7e22ce', '#3b0764'],
+  },
+  {
+    id: 'isla-de-pascua',
+    nombre: 'Isla de Pascua',
+    pais: 'Chile',
+    continente: 'Oceanía',
+    resumen: 'Moáis, volcanes y cultura rapa nui en medio del Pacífico.',
+    descripcion:
+      'Rapa Nui es uno de los lugares habitados más aislados del planeta. Sus moáis, cráteres y playas de arena blanca se recorren en bicicleta o a caballo.',
+    actividades: [
+      { nombre: 'Rano Raraku', descripcion: 'La cantera donde se tallaron los moáis.' },
+      { nombre: 'Ahu Tongariki', descripcion: 'Amanecer frente a quince moáis.' },
+      { nombre: 'Playa Anakena', descripcion: 'Arena blanca y palmeras junto a un ahu.' },
+    ],
+    mejorEpoca: 'Enero y febrero (festival Tapati)',
+    idioma: 'Español y rapanui',
+    moneda: 'Peso chileno (CLP)',
+    precioDesde: 690000,
+    tono: ['#0f766e', '#134e4a'],
+  },
+]

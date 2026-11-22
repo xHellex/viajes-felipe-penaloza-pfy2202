@@ -1,18 +1,35 @@
-import { Link, Route, Routes } from 'react-router'
+import { Navigate, Route, Routes, useLocation } from 'react-router'
+import PlantillaSitio from './components/templates/PlantillaSitio.jsx'
+import { usePlanViaje } from './context/planViaje.js'
+import PaginaDestino from './pages/PaginaDestino.jsx'
 import PaginaDestinos from './pages/PaginaDestinos.jsx'
+import PaginaInicio from './pages/PaginaInicio.jsx'
+import PaginaMiViaje from './pages/PaginaMiViaje.jsx'
+import PaginaNoEncontrada from './pages/PaginaNoEncontrada.jsx'
+import { PaginaHoteles, PaginaVuelos } from './pages/PaginaOpciones.jsx'
+
+/** /destinos/:id abre la pestaña Vuelos, conservando el modo demostración (?simular). */
+function IrAVuelos() {
+  const { search } = useLocation()
+  return <Navigate to={{ pathname: 'vuelos', search }} replace />
+}
 
 export default function App() {
+  const { vuelo, hotel } = usePlanViaje()
+
   return (
-    <main className="mx-auto max-w-5xl p-6">
-      <nav className="mb-6 flex gap-4">
-        <Link to="/">Inicio</Link>
-        <Link to="/destinos">Destinos</Link>
-      </nav>
-      <Routes>
-        <Route index element={<h1 className="text-3xl">Rumbo · Agencia de viajes</h1>} />
+    <Routes>
+      <Route element={<PlantillaSitio elementosPlan={Number(Boolean(vuelo)) + Number(Boolean(hotel))} />}>
+        <Route index element={<PaginaInicio />} />
         <Route path="destinos" element={<PaginaDestinos />} />
-        <Route path="*" element={<h1 className="text-3xl">Página no encontrada</h1>} />
-      </Routes>
-    </main>
+        <Route path="destinos/:destinoId" element={<PaginaDestino />}>
+          <Route index element={<IrAVuelos />} />
+          <Route path="vuelos" element={<PaginaVuelos />} />
+          <Route path="hoteles" element={<PaginaHoteles />} />
+        </Route>
+        <Route path="mi-viaje" element={<PaginaMiViaje />} />
+        <Route path="*" element={<PaginaNoEncontrada />} />
+      </Route>
+    </Routes>
   )
 }

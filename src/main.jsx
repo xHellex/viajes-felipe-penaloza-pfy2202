@@ -3,6 +3,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router'
 import App from './App.jsx'
+import PlanViajeProvider from './context/PlanViajeProvider.jsx'
 import { clienteApollo } from './services/graphql/cliente.js'
 import './styles/index.css'
 
@@ -37,7 +38,9 @@ async function iniciarAplicacion() {
       <ApolloProvider client={clienteApollo}>
         {/* BrowserRouter necesita el basename sin la barra final */}
         <BrowserRouter basename={base.replace(/\/$/, '') || '/'}>
-          <App />
+          <PlanViajeProvider>
+            <App />
+          </PlanViajeProvider>
         </BrowserRouter>
       </ApolloProvider>
     </StrictMode>,
