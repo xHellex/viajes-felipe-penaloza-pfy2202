@@ -25,6 +25,11 @@ describe('obtenerJSON', () => {
     })
   })
 
+  it('404 sin JSON (lo responde el hosting, no la API) → sin-servicio', async () => {
+    servidor.use(http.get('*/api/destinos', () => HttpResponse.html('<!doctype html><p>404</p>', { status: 404 })))
+    await expect(obtenerJSON('api/destinos')).rejects.toMatchObject({ tipo: 'sin-servicio', status: 404 })
+  })
+
   it('500 → servidor', async () => {
     await expect(obtenerJSON('api/destinos', { params: { simular: 'servidor' } })).rejects.toMatchObject({ tipo: 'servidor', status: 500 })
   })

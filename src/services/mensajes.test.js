@@ -8,9 +8,10 @@ describe('tabla de mensajes', () => {
     }
   })
 
-  it('solo los errores de red y de servidor permiten reintentar', () => {
+  it('solo los errores de red, de servidor y sin servicio permiten reintentar', () => {
     expect(permiteReintento(new ErrorApi('red'))).toBe(true)
     expect(permiteReintento(new ErrorApi('servidor'))).toBe(true)
+    expect(permiteReintento(new ErrorApi('sin-servicio'))).toBe(true)
     expect(permiteReintento(new ErrorApi('no-encontrado'))).toBe(false)
     expect(permiteReintento(new ErrorApi('respuesta'))).toBe(false)
   })

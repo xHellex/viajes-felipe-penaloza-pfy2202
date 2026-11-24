@@ -12,8 +12,10 @@ export function traducirErrorGraphql(error) {
   }
   // Status HTTP distinto de 2xx
   if (ServerError.is(error)) {
-    const tipo = error.statusCode === 404 ? 'no-encontrado' : error.statusCode >= 500 ? 'servidor' : 'respuesta'
-    return new ErrorApi(tipo, { status: error.statusCode, causa: error })
+    // 404/405: el endpoint no existe (en Pages sin el Service Worker de MSW, POST da 405)
+    const { statusCode } = error
+    const tipo = statusCode === 404 || statusCode === 405 ? 'sin-servicio' : statusCode >= 500 ? 'servidor' : 'respuesta'
+    return new ErrorApi(tipo, { status: statusCode, causa: error })
   }
   // El cuerpo no era JSON (p. ej. un index.html)
   if (ServerParseError.is(error)) return new ErrorApi('respuesta', { status: error.statusCode, causa: error })

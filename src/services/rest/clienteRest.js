@@ -18,8 +18,9 @@ export function urlApi(ruta, params = {}) {
   return url.toString()
 }
 
-function tipoSegunStatus(status) {
-  if (status === 404) return 'no-encontrado'
+function tipoSegunStatus(status, cuerpo) {
+  // Nuestra API responde sus 404 con JSON; un 404 sin JSON lo da el hosting (MSW no intercepta)
+  if (status === 404) return cuerpo ? 'no-encontrado' : 'sin-servicio'
   if (status >= 500) return 'servidor'
   return 'respuesta'
 }
@@ -40,7 +41,7 @@ export async function obtenerJSON(ruta, { params, signal } = {}) {
   if (!respuesta.ok) {
     // El cuerpo del error es opcional: si no trae { mensaje }, se usa el texto del tipo
     const cuerpo = await respuesta.json().catch(() => null)
-    throw new ErrorApi(tipoSegunStatus(respuesta.status), { status: respuesta.status, mensaje: cuerpo?.mensaje })
+    throw new ErrorApi(tipoSegunStatus(respuesta.status, cuerpo), { status: respuesta.status, mensaje: cuerpo?.mensaje })
   }
 
   try {

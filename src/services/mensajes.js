@@ -21,6 +21,12 @@ export const MENSAJES = {
     sugerencia: 'Revisa tu conexión a internet y vuelve a intentarlo.',
     permiteReintento: true,
   },
+  'sin-servicio': {
+    titulo: 'El servicio simulado no está activo',
+    detalle: 'La petición no pasó por el Service Worker de MSW y el hosting no tiene esa API.',
+    sugerencia: 'Recarga la página. Si tienes DevTools abiertas, desmarca "Bypass for network" en Application › Service Workers.',
+    permiteReintento: true,
+  },
   respuesta: {
     titulo: 'La respuesta del servidor no es válida',
     detalle: 'Se recibió información con un formato inesperado.',
@@ -29,7 +35,7 @@ export const MENSAJES = {
   },
 }
 
-/** Error de una petición. tipo: 'no-encontrado' | 'servidor' | 'red' | 'respuesta'. */
+/** Error de una petición. tipo: 'no-encontrado' | 'servidor' | 'red' | 'sin-servicio' | 'respuesta'. */
 export class ErrorApi extends Error {
   constructor(tipo, { status, mensaje, causa } = {}) {
     super(mensaje ?? MENSAJES[tipo].detalle, { cause: causa })

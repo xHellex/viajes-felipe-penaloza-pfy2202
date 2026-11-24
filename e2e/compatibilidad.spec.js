@@ -41,3 +41,20 @@ test('el diálogo de confirmación funciona con teclado (Esc cancela)', async ({
   await expect(dialogo).toBeHidden()
   await expect(page.getByText('Aún no eliges hotel.')).toBeVisible()
 })
+
+test('si el Service Worker no intercepta, se avisa que el servicio no está activo (no "no existe")', async ({ page, browserName }) => {
+  test.skip(browserName !== 'chromium', 'Saltarse el Service Worker solo se puede con el protocolo de Chrome')
+  // Como "Bypass for network" de DevTools: las peticiones van al hosting, que responde 404 en HTML
+  const cdp = await page.context().newCDPSession(page)
+  await cdp.send('Network.enable')
+  await cdp.send('Network.setBypassServiceWorker', { bypass: true })
+  await page.route('**/api/**', (ruta) => ruta.fulfill({ status: 404, contentType: 'text/html', body: '<!doctype html><p>404</p>' }))
+
+  await page.goto('destinos')
+  await expect(page.getByRole('alert')).toContainText('El servicio simulado no está activo')
+  await expect(page.getByRole('button', { name: 'Reintentar' })).toBeVisible()
+
+  await page.goto('destinos/cusco/vuelos')
+  await expect(page.getByRole('alert').first()).toContainText('El servicio simulado no está activo')
+  await expect(page.getByRole('heading', { name: 'Destino no encontrado' })).toHaveCount(0)
+})
