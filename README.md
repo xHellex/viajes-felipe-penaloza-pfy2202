@@ -259,7 +259,7 @@ Escenarios (`e2e/recorrido.spec.js` y `e2e/compatibilidad.spec.js`):
 | 2 | Build local en Windows (Git Bash) | `VITE_BASE_PATH=/viajes-…/` se convertía en `C:/Program Files/Git/viajes-…/`: el `index.html` apuntaba a rutas inexistentes y el sitio quedaba en blanco | El sitio publicado se compila en GitHub Actions (Linux); en local se usa `MSYS_NO_PATHCONV=1` o `npm run e2e`, que define la base sin pasar por la shell |
 | 3 | Primer despliegue en GitHub Actions | Las acciones de Pages usaban Node 20, que está deprecado | Se actualizaron a `checkout@v7`, `setup-node@v7`, `configure-pages@v6`, `upload-pages-artifact@v5` y `deploy-pages@v5` |
 | 4 | Revisión de las capturas en Chromium | Al tomar capturas de página completa, la cabecera fija quedaba a mitad de la imagen y las pestañas salían a medio cambiar de color | La captura se toma desde arriba y sin animaciones; la interfaz no tenía errores (se comprobaron los estilos calculados) |
-| 5 | **Chrome** (prueba manual) | Con DevTools abiertas, la lista de destinos decía "El destino solicitado no existe" y la consola mostraba 404 en `/api/destinos`. La casilla "Bypass for network" hacía que las peticiones se saltaran el Service Worker de MSW y llegaran a GitHub Pages, que responde 404 en HTML; la app lo confundía con un destino inexistente | Un 404 solo es "no encontrado" si viene con el JSON de nuestra API. Un 404 o 405 sin JSON se muestra como "El servicio simulado no está activo", con Reintentar y la pista para recargar. Se agregó una prueba e2e que reproduce el caso |
+| 5 | **Brave** (prueba manual, motor Chromium) | Con DevTools abiertas, la lista de destinos decía "El destino solicitado no existe" y la consola mostraba 404 en `/api/destinos`. La casilla "Bypass for network" hacía que las peticiones se saltaran el Service Worker de MSW y llegaran a GitHub Pages, que responde 404 en HTML; la app lo confundía con un destino inexistente | Un 404 solo es "no encontrado" si viene con el JSON de nuestra API. Un 404 o 405 sin JSON se muestra como "El servicio simulado no está activo", con Reintentar y la pista para recargar. Se agregó una prueba e2e que reproduce el caso |
 
 Lo que suele fallar entre navegadores se **previno** y quedó **verificado** en los 5 navegadores:
 
@@ -272,14 +272,15 @@ Lo que suele fallar entre navegadores se **previno** y quedó **verificado** en 
 
 ### Manuales
 
-Se revisó el sitio publicado, también en una **ventana privada**:
+Se revisó el sitio publicado en ventana normal y en **ventana privada**, siguiendo el recorrido: listado y filtros, destino con vuelos y hoteles, "Solo con disponibilidad", plan con su total, cambio de destino con confirmación, recarga directa, errores simulados, 404 y teclado.
 
 | Navegador | Versión | Sistema | Normal | Privada | Observaciones |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Chrome | _completar_ | Windows 10 | _completar_ | _completar_ | |
-| Edge | _completar_ | Windows 10 | _completar_ | _completar_ | |
-| Firefox | _completar_ | Windows 10 | _completar_ | _completar_ | Si la ventana privada no permite Service Workers, la app muestra una página que lo explica en vez de quedar en blanco |
-| Celular | _completar_ | _completar_ | _completar_ | — | |
+| Brave (motor Chromium) | 158.1.100.58 | Windows 10 | Aprobado | Aprobado | Con DevTools abiertas se encontró el problema 5 (casilla "Bypass for network"); corregido |
+| Edge | 158.0.4370.33 | Windows 10 | Aprobado | Aprobado | |
+| Firefox | 160.0.1 | Windows 10 | Aprobado | Aprobado | El Service Worker de MSW funcionó también en la ventana privada |
+| Chrome | — | — | No probado | No probado | Mismo motor que Brave y Edge; cubierto por las pruebas automáticas en Chromium |
+| Celular | — | — | No probado | — | Cubierto solo por los emuladores de Playwright (Pixel 7 e iPhone 13), no por un equipo real |
 
 ---
 
